@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Page Title</title>
+</head>
+
+<body>
+    <div id="app">
+        <button id="btn-box">Criar caixa</button>
+        <div class="box" id="box"></div>
+        <input type="text" name="nome" />
+        <button onclick="addName()">Adicionar</button>
+        <ul></ul>
+    </div>
+
+
+
+    <div class="content">
+        <ul>
+
+        </ul>
+    </div>
+
+    <script>
+        var buttonElement = document.getElementById("btn-box");
+        var boxElement = document.getElementById("box");
+
+        function getRandomColor() {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function doBox() {
+            var redBox = document.createElement("div");
+            redBox.style.width = "100px";
+            redBox.style.height = "100px";
+            redBox.style.backgroundColor = "#F00";
+            redBox.style.marginBottom = "5px";
+
+            boxElement.appendChild(redBox);
+
+            redBox.onmouseover = function(){
+                redBox.style.backgroundColor = getRandomColor();
+            }
+        }
+
+        buttonElement.onclick = doBox
+
+
+        var nomes = ["Diego", "Gabriel", "Lucas"];
+
+        var listElement = document.querySelector('#app ul')
+        var inputElement = document.querySelector('#app input')
+
+        function renderNames() {
+            listElement.innerHTML = ''
+
+            for (nome of nomes) {
+                var todoElement = document.createElement('li')
+                var todoText = document.createTextNode(nome)
+
+                todoElement.appendChild(todoText)
+                listElement.appendChild(todoElement)
+            }
+        }
+
+        renderNames();
+
+        function addName() {
+            var name = inputElement.value;
+            nomes.push(name)
+            inputElement.value= '';
+            renderNames()
+        }
+    </script>
+</body>
+
+</html>
